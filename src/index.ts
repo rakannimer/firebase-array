@@ -1,6 +1,7 @@
 class FirebaseArray {
   keys: any[];
   values: any[];
+
   constructor(keys = [], values = []) {
     this.keys = keys;
     this.values = values;
