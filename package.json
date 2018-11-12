@@ -1,6 +1,6 @@
 {
   "name": "firebase-array",
-  "version": "0.1.0",
+  "version": "0.0.0-development",
   "main": "dist/index.cjs.js",
   "module": "dist/index.esm.js",
   "types": "dist/index.d.ts",
@@ -11,7 +11,8 @@
     "test": "jest --coverage",
     "prepublish": "npm run test && npm run build",
     "commit": "git-cz",
-    "setup:semantic-release": "npx semantic-release-cli setup"
+    "setup:semantic-release": "npx semantic-release-cli setup",
+    "semantic-release": "semantic-release"
   },
   "husky": {
     "pre-commit": "prettier src/* --write",
@@ -32,7 +33,7 @@
     "prettier": "^1.14.3",
     "rollup": "^0.66.4",
     "rollup-plugin-typescript2": "^0.17.1",
-    "semantic-release": "^15.9.17",
+    "semantic-release": "^15.10.8",
     "ts-jest": "^23.10.3",
     "typescript": "^3.1.1"
   },
