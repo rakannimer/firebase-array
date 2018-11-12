@@ -1,5 +1,8 @@
 class FirebaseArray {
-  state = [] as (string | number)[];
+  state: any;
+  constructor(arr = []) {
+    this.state = arr;
+  }
   get = () => {
     return this.state;
   };
