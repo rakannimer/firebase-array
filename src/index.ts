@@ -16,19 +16,12 @@ class FirebaseArray {
       this.state.push(key);
       return;
     }
-    this.state = [
-      ...this.state.slice(0, previousKeyIndex + 1),
-      key,
-      ...this.state.slice(previousKeyIndex + 1)
-    ];
+    this.state.splice(previousKeyIndex + 1, 0, key);
     return;
   };
   childRemoved = (key: string) => {
     const previousKeyIndex = this.state.indexOf(key);
-    this.state = [
-      ...this.state.slice(0, previousKeyIndex),
-      ...this.state.slice(previousKeyIndex + 1)
-    ];
+    this.state.splice(previousKeyIndex, 1);
     return;
   };
   childMoved = (key: string, previousKey: string) => {
