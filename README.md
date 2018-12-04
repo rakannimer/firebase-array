@@ -1,5 +1,15 @@
 # Array that exposes same API as Firebase Listener Methods
 
+## Install
+
+```sh
+yarn add firebase-array
+# or
+npm i firebase-array
+```
+
+## Usage
+
 ```typescript
 import FirebaseArray from "firebase-array";
 
@@ -59,5 +69,29 @@ describe("FirebaseArray", () => {
       values: ["v1-2", "v2"]
     });
   });
+
+  test("onChange works", () => {
+    const firebaseArray = new FirebaseArray();
+    const changeListener = jest.fn();
+    firebaseArray.onChange(changeListener);
+    firebaseArray.childAdded("1", "v1", null);
+    expect(changeListener.mock.calls.length).toEqual(1);
+  });
+  test("unsub works", () => {
+    const firebaseArray = new FirebaseArray();
+    const changeListener = jest.fn();
+    const unsub = firebaseArray.onChange(changeListener);
+    unsub();
+    firebaseArray.childAdded("1", "v1", null);
+    expect(changeListener.mock.calls.length).toEqual(0);
+  });
+  test("unsub fails silently when an event listener is not found", () => {
+    const firebaseArray = new FirebaseArray();
+    const changeListener = jest.fn();
+    firebaseArray.childAdded("1", "v1", null);
+    expect(changeListener.mock.calls.length).toEqual(0);
+  });
+});
+
 });
 ```
