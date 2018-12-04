@@ -8,8 +8,14 @@ class FirebaseArray {
     this.listeners = listeners;
   }
   onChange = (eventHandler: (f: FirebaseArray) => void) => {
+    const unsub = () => {
+      const eventIndex = this.listeners.indexOf(eventHandler);
+      this.listeners.splice(eventIndex, 1);
+    };
     this.listeners.push(eventHandler);
+    return unsub;
   };
+
   private emit = () => {
     this.listeners.forEach(fn => fn(this));
   };

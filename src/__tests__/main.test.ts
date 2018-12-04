@@ -79,4 +79,18 @@ describe("FirebaseArray", () => {
     firebaseArray.childAdded("1", "v1", null);
     expect(changeListener.mock.calls.length).toEqual(1);
   });
+  test("unsub works", () => {
+    const firebaseArray = new FirebaseArray();
+    const changeListener = jest.fn();
+    const unsub = firebaseArray.onChange(changeListener);
+    unsub();
+    firebaseArray.childAdded("1", "v1", null);
+    expect(changeListener.mock.calls.length).toEqual(0);
+  });
+  test("unsub fails silently when an event listener is not found", () => {
+    const firebaseArray = new FirebaseArray();
+    const changeListener = jest.fn();
+    firebaseArray.childAdded("1", "v1", null);
+    expect(changeListener.mock.calls.length).toEqual(0);
+  });
 });
