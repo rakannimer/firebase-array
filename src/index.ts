@@ -10,7 +10,7 @@ class FirebaseArray {
   onChange = (eventHandler: (f: FirebaseArray) => void) => {
     this.listeners.push(eventHandler);
   };
-  emit = () => {
+  private emit = () => {
     this.listeners.forEach(fn => fn(this));
   };
   get = () => {
@@ -19,7 +19,7 @@ class FirebaseArray {
       values: this.values
     };
   };
-  emitAndGet = () => {
+  private emitAndGet = () => {
     this.emit();
     return this.get();
   };
