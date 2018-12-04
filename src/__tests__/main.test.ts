@@ -17,6 +17,11 @@ describe("FirebaseArray", () => {
       values: ["", "", ""]
     });
   });
+  test("child_added works with previousKey that doesn't exist", () => {
+    const firebaseArray = new FirebaseArray();
+    firebaseArray.childAdded("1", "", "2");
+    expect(firebaseArray.get()).toEqual({ keys: ["1"], values: [""] });
+  });
   test("child_removed works", () => {
     const firebaseArray = new FirebaseArray();
     expect(firebaseArray.get()).toEqual({ keys: [], values: [] });
@@ -55,5 +60,23 @@ describe("FirebaseArray", () => {
       keys: ["1", "2"],
       values: ["v1-2", "v2"]
     });
+  });
+
+  test("child_changed adds child if previous key not found", () => {
+    const firebaseArray = new FirebaseArray();
+    expect(firebaseArray.get()).toEqual({ keys: [], values: [] });
+    firebaseArray.childChanged("1", "v1", "2");
+    expect(firebaseArray.get()).toEqual({
+      keys: ["1"],
+      values: ["v1"]
+    });
+  });
+
+  test("onChange works", () => {
+    const firebaseArray = new FirebaseArray();
+    const changeListener = jest.fn();
+    firebaseArray.onChange(changeListener);
+    firebaseArray.childAdded("1", "v1", null);
+    expect(changeListener.mock.calls.length).toEqual(1);
   });
 });
